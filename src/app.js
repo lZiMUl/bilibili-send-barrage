@@ -16,12 +16,12 @@ import { EventEmitter } from 'events';
 
 // 創建主類
 class BiliBiliSendBarrage extends EventEmitter {
-	
+
 	// 定義靜態對象
 	static eventTrigger = null;
 	static eventListener = null;
 	static globalConfigs = null;
-	
+
 	// 類的初始化入口
 	constructor(ROOMID, configs = {
 		CSRF: null,
@@ -66,6 +66,7 @@ class BiliBiliSendBarrage extends EventEmitter {
 	// 發送消息
 	send(message) {
 		if(message) {
+
 			// 定義常量數據體
 			const data = `------WebKitFormBoundary8kjTT7jRU64detOB
 Content-Disposition: form-data; name="bubble"
@@ -124,6 +125,7 @@ ${BiliBiliSendBarrage.globalConfigs.configs.CSRF}
 
 	// 靜態創建請求實例
 	static createRequest(requestConfig) {
+
 		// 返回實例
 		return request(requestConfig, socket => {
 			socket.on('data', message => {
@@ -137,21 +139,25 @@ ${BiliBiliSendBarrage.globalConfigs.configs.CSRF}
 					case 0: 
 						trigger('发送成功');
 					break;
-					
+
 					case -101: 
 						trigger(result.message);
 					break;
-					
+
 					case -111: 
 						trigger(result.message);
 					break;
-					
+
 					case -400: 
 						trigger('未提供房间号');
 					break;
-					
+
+					case 11000: 
+						trigger('當前直播間已關閉彈幕功能');
+					break;
+
 					default: 
-						trigger(result.message);
+						trigger(result);
 					break;
 				}
 			});
