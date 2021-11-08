@@ -10,11 +10,10 @@ npm install bilibili-send-barrage --save
 'use strict';
 
 // 引入依賴
-const BiliBiliSendBarrage = require('bilibili-send-barrage');
+import BiliBiliSendBarrage from 'bilibili-send-barrage';
 
 // 設定配置
-const server = new BiliBiliSendBarrage({
-	ROOMID: '房间号', 
+const server = new BiliBiliSendBarrage(ROOMID, {
 	CSRF: '',
 	COOKIE: ''
 });
