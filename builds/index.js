@@ -1,3 +1,3 @@
-module.exports = function builds() {
+export default function builds() {
 	
 }
